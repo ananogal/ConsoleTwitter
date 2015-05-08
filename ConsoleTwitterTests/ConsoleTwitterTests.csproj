@@ -71,14 +71,39 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Acceptance\Features\ReadPosts.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReadPosts.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Acceptance\Features\StartProgram.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StartProgram.feature</DependentUpon>
+    </Compile>
     <Compile Include="Acceptance\Features\Tweet.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Tweet.feature</DependentUpon>
     </Compile>
+    <Compile Include="Acceptance\Steps\ReadPostsStepDefinition.cs" />
+    <Compile Include="Acceptance\Steps\StartProgramStepDefinition.cs" />
+    <Compile Include="Acceptance\Steps\TweetStepDefinition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Unit\Actions\CreateUserInputFromPostCommandTests.cs" />
+    <Compile Include="Unit\Actions\ExecuteCommandTests.cs" />
+    <Compile Include="Unit\Infrastructure\PostsRepositoryTests.cs" />
+    <Compile Include="Unit\Infrastructure\UsersRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Acceptance\Features\ReadPosts.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ReadPosts.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Acceptance\Features\StartProgram.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>StartProgram.feature.cs</LastGenOutput>
+    </None>
     <None Include="Acceptance\Features\Tweet.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Tweet.feature.cs</LastGenOutput>
@@ -86,9 +111,15 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Acceptance\Steps\" />
-    <Folder Include="Unit\" />
+    <ProjectReference Include="..\ConsoleTwitter\ConsoleTwitter.csproj">
+      <Project>{54d57598-d815-44fb-bd06-0cb78cfc5ee0}</Project>
+      <Name>ConsoleTwitter</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

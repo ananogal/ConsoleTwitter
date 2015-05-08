@@ -3,10 +3,8 @@
 	As a user
 	I want to be able to post and read a message
 
-@mytag
-Scenario: Tweet a message 
-	Given I have enter my username
-	And I have entered a message
-	When I enter my username
-	Then I should see my message
+Scenario: Enter a post command 
+	Given the system is waiting for a command
+	When I enter a post command
+	Then I should create a post command
 
