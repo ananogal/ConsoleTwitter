@@ -28,7 +28,12 @@ namespace ConsoleTwitter.Actions
             }
             else
             {
-                userInput = new UserInput(userInputArray[0].Trim(), userInputArray[1].Trim(), userInputArray[2].Trim(), CommandType.Post);
+                var message = "";
+                for (int i = 2; i < userInputArray.Count(); i++)
+                {
+                    message += userInputArray[i] + " ";
+                }
+                userInput = new UserInput(userInputArray[0].Trim(), userInputArray[1].Trim(), message, CommandType.Post);
             }
             return userInput; 
         }

@@ -31,7 +31,9 @@ namespace ConsoleTwitter.Infrastructure
 
         public virtual List<Post> GetAllByUser(User user)
         {
-            var latest = postsList.Where(p => p.User == user).ToList();
+            var latest = postsList.Where(p => p.User == user)
+                                   .OrderByDescending(p => p.PublishedDate)
+                                   .ToList();
             return latest;
         }
     }
