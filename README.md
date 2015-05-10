@@ -42,7 +42,7 @@ Alice - I love the weather today (5 minutes ago)
 
 #### Clone this repository
 
-git clone [https://github.com/ananogal/ConsoleTwitter.git (https://github.com/ananogal/ConsoleTwitter.git)
+git clone [https://github.com/ananogal/ConsoleTwitter.git] (https://github.com/ananogal/ConsoleTwitter.git)
 
 and then navigate to clone directory.
 
