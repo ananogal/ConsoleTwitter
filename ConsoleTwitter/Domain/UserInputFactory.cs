@@ -51,7 +51,7 @@ namespace ConsoleTwitter.Domain
 			{
 				message += strArray[i] + " ";
 			}
-			return message;
+			return message.Trim();
 		}
 
 		private CommandType composeCommandType(string command)

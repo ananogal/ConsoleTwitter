@@ -36,7 +36,7 @@ namespace ConsoleTwitter.Actions
             if (latestPosts != null)
             {
 				if (userInput.CommandType == CommandType.Read) {
-					ShowPosts (latestPosts);
+					ShowPosts(latestPosts);
 				} 
 				else 
 				{

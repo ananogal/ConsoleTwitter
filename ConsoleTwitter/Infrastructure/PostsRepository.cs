@@ -8,34 +8,34 @@ namespace ConsoleTwitter.Infrastructure
 {
    // private List<Post> posts;
 
-    public class PostsRepository
-    {
-        private List<Post> postsList;
+	public class PostsRepository
+	{
+		private List<Post> postsList;
 
-        public PostsRepository(List<Post> postsList)
-        {
-            this.postsList = postsList;
-        }
+		public PostsRepository(List<Post> postsList)
+		{
+			this.postsList = postsList;
+		}
 
-        public virtual Post Create(User user, string message)
-        {
-            var post = new Post(user, message);
-            postsList.Add(post);
-            return post;
-        }
+		public virtual Post Create(User user, string message)
+		{
+			var post = new Post(user, message);
+			postsList.Add(post);
+			return post;
+		}
 
-        public int Count()
-        {
-            return postsList.Count();
-        }
+		public int Count()
+		{
+			return postsList.Count();
+		}
 
-        public virtual List<Post> GetAllByUser(User user)
-        {
-            var latest = postsList.Where(p => p.User == user)
-                                   .OrderByDescending(p => p.PublishedDate)
-                                   .ToList();
-            return latest;
-        }
+		public virtual List<Post> GetAllByUser(User user)
+		{
+			var latest = postsList.Where(p => p.User == user)
+								   .OrderByDescending(p => p.PublishedDate)
+								   .ToList();
+			return latest;
+		}
 	
 		public virtual List<Post> GetAllByUserAndFollowees(User user)
 		{
@@ -43,5 +43,5 @@ namespace ConsoleTwitter.Infrastructure
 				.OrderByDescending(p => p.PublishedDate)		
 							.ToList();
 		}
-    }
+	}
 }
