@@ -77,7 +77,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
   testRunner.When("I enter the system", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 9
-  testRunner.Then("I see the a welcome Message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.Then("I see a welcome Message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

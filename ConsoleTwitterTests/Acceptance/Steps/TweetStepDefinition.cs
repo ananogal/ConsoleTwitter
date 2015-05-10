@@ -15,6 +15,8 @@ namespace ConsoleTwitterTests.Acceptance.Steps
     [Binding]
     public sealed class TweetStepDefinition
     {
+        string stringCommand = "";
+
         [Given(@"the system is waiting for a command")]
         public void GivenTheSystemIsWaitingForACommand()
         {
@@ -23,20 +25,13 @@ namespace ConsoleTwitterTests.Acceptance.Steps
         [When(@"I enter a post command")]
         public void WhenIEnterAPostCommand()
         {
+            stringCommand = "Ana -> Hello!";
         }
 
         [Then(@"I should create a post command")]
         public void ThenIShouldCreateAPostCommand()
         {
-            var stringCommand = "Ana -> Hello!";
-            var factory = new CreateUserInputFromPostCommand(stringCommand);
-            var users = new UsersRepository();
-            var posts = new PostsRepository();
-            var command = new ExecutePostCommand(factory, users, posts);
-
-            command.Execute();
-
-            posts.Count().Should().Equals(1);
+            
         }
 
 

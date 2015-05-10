@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FluentAssertions;
+using ConsoleTwitter.Domain;
 
 namespace ConsoleTwitterTests.Unit.Infrastructure
 {
@@ -14,7 +15,8 @@ namespace ConsoleTwitterTests.Unit.Infrastructure
         [Test]
         public void ItShouldGetAUserByUserName()
         {
-            var repository = new UsersRepository();
+            var usersList = new List<User>();
+            var repository = new UsersRepository(usersList);
             var user = repository.GetUser("Ana");
 
             user.Should().NotBeNull();

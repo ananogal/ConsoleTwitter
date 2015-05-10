@@ -6,7 +6,7 @@
 Scenario: Start Program
 		Given I am a user
 		When I enter the system 
-		Then I see the a welcome Message
+		Then I see a welcome Message
 
 Scenario: Waiting for commands
 		Given I enter the system

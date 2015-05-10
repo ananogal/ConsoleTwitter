@@ -4,11 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleTwitter
+namespace ConsoleTwitter.Domain
 {
+    public enum CommandType
+    { 
+        Post = 1,
+        Read,
+        Follow,
+        Wall
+    }
+
     public struct UserInput
     {
         string username, command, action;
+        CommandType commandType;
+
+        public CommandType CommandType
+        {
+            get { return commandType; }
+        }
 
         public string Action
         {
@@ -25,11 +39,12 @@ namespace ConsoleTwitter
             get { return username; }
         }
 
-        public UserInput(string username, string command, string action)
+        public UserInput(string username, string command, string action, CommandType type)
         {
             this.username = username;
             this.command = command;
             this.action = action;
+            this.commandType = type;
         }
     }
 }

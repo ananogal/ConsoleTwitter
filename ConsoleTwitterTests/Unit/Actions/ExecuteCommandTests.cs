@@ -14,47 +14,40 @@ namespace ConsoleTwitterTests.Unit.Actions
     [TestFixture]
     public class ExecuteCommandTests
     {
-        string userImput;
-        CreateUserInputFromPostCommand userInputFactory;
         UsersRepository users;
         PostsRepository posts;
+        CommandFactory commandFactory;
 
         [SetUp]
         public void BeforeEach()
         {
-            userImput = "Ana -> Hello!";
-            userInputFactory = Substitute.For<CreateUserInputFromPostCommand>(userImput);
-            users = Substitute.For<UsersRepository>();
-            posts = Substitute.For<PostsRepository>();
+            users = Substitute.For<UsersRepository>(new List<User>());
+            posts = Substitute.For<PostsRepository>(new List<Post>());
+            commandFactory = Substitute.For<CommandFactory>();
         }
-
+        
         [Test]
-        public void ItShouldColaborateWithCreateUserInputFromPostCommandToCreateAUserInput()
+        public void ItShouldColaborateWithCreateUserInputToCreateAUserInput()
         {
-             var command = new ExecutePostCommand(userInputFactory, users, posts);
+            string userImput = "Ana   ";
+            var userInputFactory = Substitute.For<CreateUserInput>(userImput);
+            var command = new ExecuteCommand(userInputFactory, users, posts, commandFactory);
 
             command.Execute();
+
             userInputFactory.Received().Create();
         }
 
         [Test]
-        public void ItShouldColaborateWithUsersRepositoryAndGetTheUser()
+        public void ItShouldColaborateWithCommandFactoryToCreateAPostCommand()
         {
-            var command = new ExecutePostCommand(userInputFactory, users, posts);
+            string userImput = "Ana -> Hello!";
+            var userInputFactory = Substitute.For<CreateUserInput>(userImput);
+            var command = new ExecuteCommand(userInputFactory, users, posts, commandFactory);
 
             command.Execute();
 
-            users.Received().GetUser("Ana");
-        }
-
-        [Test]
-        public void ItShouldColaborateWithPostRepositoryToCreateAPost()
-        {
-            var command = new ExecutePostCommand(userInputFactory, users, posts);
-
-            command.Execute();
-
-            posts.Received().Create(Arg.Any<User>(), Arg.Any<string>());
+            commandFactory.Received().Create(Arg.Any<UserInput>(), Arg.Any<UsersRepository>(), Arg.Any<PostsRepository>());
         }
     }
 }

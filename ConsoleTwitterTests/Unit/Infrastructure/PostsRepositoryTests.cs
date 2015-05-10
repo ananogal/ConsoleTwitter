@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FluentAssertions;
+using NSubstitute;
+using ConsoleTwitter.Domain;
 
 namespace ConsoleTwitterTests.Unit.Infrastructure
 {
@@ -14,11 +16,26 @@ namespace ConsoleTwitterTests.Unit.Infrastructure
         [Test]
         public void ItShouldCreateANewPost()
         {
-            var repository = new PostsRepository();
-            var user = new UsersRepository().GetUser("Ana");
+            var postList = new List<Post>();
+            var repository = new PostsRepository(postList);
+            var usersList = new List<User>();
+            var user = new UsersRepository(usersList).GetUser("Ana");
             var post = repository.Create(user, "Hello!");
 
             post.Should().NotBeNull();
+        }
+
+        [Test]
+        public void ItShouldGetAllPostsForUser()
+        {
+            var postList = new List<Post>();
+            var repository = new PostsRepository(postList);
+            var usersList = new List<User>();
+            var user = new UsersRepository(usersList).GetUser("Ana");
+            repository.Create(user, "Hello!");
+            var posts = repository.GetAllByUser(user);
+
+            posts.Count().Should().BeGreaterOrEqualTo(1);
         }
     }
 }

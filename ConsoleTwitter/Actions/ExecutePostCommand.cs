@@ -1,4 +1,5 @@
-﻿using ConsoleTwitter.Infrastructure;
+﻿using ConsoleTwitter.Domain;
+using ConsoleTwitter.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,26 +7,24 @@ using System.Text;
 
 namespace ConsoleTwitter.Actions
 {
-    public class ExecutePostCommand
+    public class ExecutePostCommand : IExecuteCommand
     {
-        private UsersRepository users;
-        private CreateUserInputFromPostCommand factory;
-        private PostsRepository posts;
+        private UserInput userInput;
+        private UsersRepository usersRepository;
+        private PostsRepository postsRepository;
 
-        public ExecutePostCommand(CreateUserInputFromPostCommand factory, UsersRepository users, PostsRepository posts)
+        public ExecutePostCommand(UserInput userInput, UsersRepository usersRepository, PostsRepository postsRepository)
         {
-            // TODO: Complete member initialization
-            this.factory = factory;
-            this.users = users;
-            this.posts = posts;
+            this.userInput= userInput;
+            this.usersRepository = usersRepository;
+            this.postsRepository = postsRepository;
         }
 
-
-        public void Execute()
+        public List<Post> Execute()
         {
-            var userInput = factory.Create();
-            var user = users.GetUser(userInput.Username);
-
+            var user = usersRepository.GetUser(userInput.Username);
+            postsRepository.Create(user, userInput.Action);
+            return null;
         }
     }
 }

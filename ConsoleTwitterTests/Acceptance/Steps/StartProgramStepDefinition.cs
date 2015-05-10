@@ -1,4 +1,5 @@
 ﻿using ConsoleTwitter.Actions;
+using NSubstitute;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace ConsoleTwitterTests.Acceptance.Steps
     [Binding]
     public sealed class StartProgramStepDefinition
     {
-        WriteToConsole console = new WriteToConsole();
+        WriteToConsole console = Substitute.For<WriteToConsole>();
 
         [Given(@"I am a user")]
         public void GivenIAmAUser()
@@ -22,10 +23,10 @@ namespace ConsoleTwitterTests.Acceptance.Steps
         {
         }
 
-        [Then(@"I see the a welcome Message")]
-        public void ThenISeeTheAWelcomeMessage()
+        [Then(@"I see a welcome Message")]
+        public void ThenISeeAWelcomeMessage()
         {
-            console.WriteWelcomeMessage();
+            console.Received().WriteWelcomeMessage();
         }
 
         [Given(@"I enter the system")]
@@ -42,8 +43,9 @@ namespace ConsoleTwitterTests.Acceptance.Steps
         [Then(@"the system will wait for a command")]
         public void ThenTheSystemWillWaitForACommand()
         {
-            console.Writeline("Please enter a command:");
+            var expectedMessage = "Please enter a command:";
 
+            console.Received().Writeline(expectedMessage);
         }
 
     }

@@ -41,16 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actions\CreateUserInputFromPostCommand.cs" />
+    <Compile Include="Actions\CreateUserInput.cs" />
+    <Compile Include="Actions\ExecuteCommand.cs" />
     <Compile Include="Actions\ExecutePostCommand.cs" />
+    <Compile Include="Actions\ExecuteReadCommand.cs" />
+    <Compile Include="Actions\IExecuteCommand.cs" />
     <Compile Include="Actions\WriteToConsole.cs" />
     <Compile Include="Domain\User.cs" />
     <Compile Include="Domain\Post.cs" />
+    <Compile Include="Helpers\FormatTime.cs" />
+    <Compile Include="Infrastructure\CommandFactory.cs" />
     <Compile Include="Infrastructure\PostsRepository.cs" />
     <Compile Include="Infrastructure\UsersRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserInput.cs" />
+    <Compile Include="Domain\UserInput.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

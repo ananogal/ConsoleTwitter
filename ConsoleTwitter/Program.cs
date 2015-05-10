@@ -1,4 +1,6 @@
 ﻿using ConsoleTwitter.Actions;
+using ConsoleTwitter.Domain;
+using ConsoleTwitter.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,36 +11,34 @@ namespace ConsoleTwitter
 {
     class Program
     {
-        
+        static WriteToConsole console;
         static void Main(string[] args)
         {
+            console = new WriteToConsole();
             WriteInstructions();
-
-            Console.ReadLine();
+            WaitForCommand();
         }
 
-        public static void WriteInstructions()
+        private static void WriteInstructions()
         {
-            var console = new WriteToConsole();
             console.WriteWelcomeMessage();
-            console.Writeline("Please enter a command:");
         }
 
         private static void WaitForCommand()
         {
-            var console = new WriteToConsole();
-            
+            var posts = new List<Post>();
+            var users = new List<User>();
+            var usersRepository = new UsersRepository(users);
+            var postsRepository = new PostsRepository(posts);
+            var commandFactory = new CommandFactory(); 
             do
             {
                 console.Writeline("Please enter a command:");
-                //IUserInputFactory readCommand;
-
-                //if (command.Contains("->"))
-                //{
-                //    readCommand = new CreateUserInputFromPostCommand(command);
-                //    var userInput = readCommand.Create();
-                //}
-
+                var stringCommand = Console.ReadLine();
+                var createUserInput = new CreateUserInput(stringCommand);
+                var executeCommand = new ExecuteCommand(createUserInput, usersRepository,
+                                                        postsRepository, commandFactory);
+                executeCommand.Execute();
             } while (true);
         }
     }

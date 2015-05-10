@@ -10,23 +10,29 @@ namespace ConsoleTwitter.Infrastructure
 
     public class PostsRepository
     {
-        List<Post> posts;
+        private List<Post> postsList;
 
-        public PostsRepository()
+        public PostsRepository(List<Post> postsList)
         {
-            posts = new List<Post>();
+            this.postsList = postsList;
         }
 
         public Post Create(User user, string message)
         {
             var post = new Post(user, message);
-            posts.Add(post);
+            postsList.Add(post);
             return post;
         }
 
         public int Count()
         {
-            return posts.Count();
+            return postsList.Count();
+        }
+
+        public virtual List<Post> GetAllByUser(User user)
+        {
+            var latest = postsList.Where(p => p.User == user).ToList();
+            return latest;
         }
     }
 }
