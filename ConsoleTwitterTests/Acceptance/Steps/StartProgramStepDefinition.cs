@@ -44,8 +44,7 @@ namespace ConsoleTwitterTests.Acceptance.Steps
         [Then(@"the system will wait for a command")]
         public void ThenTheSystemWillWaitForACommand()
         {
-            var expectedMessage = "Please enter a command:";
-            console.Received().Writeline(expectedMessage);
+
         }
 
     }

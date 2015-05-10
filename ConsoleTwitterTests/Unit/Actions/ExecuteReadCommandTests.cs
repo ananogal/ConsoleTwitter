@@ -31,13 +31,11 @@ namespace ConsoleTwitterTests.Unit.Actions
             posts = Substitute.For<PostsRepository>(new List<Post>());
             command = new ExecuteReadCommand(userInput, users, posts);
         }
-
-
+			
         [Test]
         public void ItShouldColaborateWithUsersRepositoryToGetTheUser()
         {
             command.Execute();
-
             users.Received().GetUser(Arg.Any<string>());
         }
 
@@ -45,7 +43,6 @@ namespace ConsoleTwitterTests.Unit.Actions
         public void ItShouldColaborateWithPostsRepositoryToGetPosts()
         {
             command.Execute();
-
             posts.Received().GetAllByUser(Arg.Any<User>());
         }
     }

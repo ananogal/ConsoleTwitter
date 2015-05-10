@@ -35,12 +35,32 @@ namespace ConsoleTwitter.Actions
             var latestPosts = command.Execute();
             if (latestPosts != null)
             {
-                foreach (var post in latestPosts)
-                {
-                    var elapsedTime = FormatTime.Format(post.PublishedDate);
-                    console.Writeline(post.Message + elapsedTime);
-                }
+				if (userInput.CommandType == CommandType.Read) {
+					ShowPosts (latestPosts);
+				} 
+				else 
+				{
+					ShowWall(latestPosts);
+				}
             }
         }
+
+		private void ShowPosts(List<Post> latestPosts)
+		{
+			foreach (var post in latestPosts)
+			{
+				var elapsedTime = FormatTime.Format(post.PublishedDate);
+				console.Writeline(post.Message + elapsedTime);
+			}
+		}
+
+		private void ShowWall(List<Post> latestPosts)
+		{
+			foreach (var post in latestPosts)
+			{
+				var elapsedTime = FormatTime.Format(post.PublishedDate);
+				console.Writeline(post.User.Username + " - " + post.Message + elapsedTime);
+			}
+		}
     }
 }

@@ -4,8 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ConsoleTwitter.Infrastructure;
 
-namespace ConsoleTwitter.Infrastructure
+namespace ConsoleTwitter.Actions
 {
     public class CommandFactory
     {
@@ -24,7 +25,7 @@ namespace ConsoleTwitter.Infrastructure
                 case CommandType.Follow:
                     return new ExecuteFollowCommand(userInput, usersRepository);
                 case CommandType.Wall:
-                    return null;
+				return new ExecuteWallCommand(userInput, usersRepository, postsRepository);
                 default:
                     return null;
             }

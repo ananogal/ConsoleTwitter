@@ -36,7 +36,6 @@ namespace ConsoleTwitterTests.Acceptance.Steps
         public void ThenIShouldCreateAPost()
         {
             var userInputFactory = new UserInputFactory(stringCommand);
-            var user = users.GetUser(stringCommand);
             var posts = new PostsRepository(postsList);
             var command = new ExecuteCommand(userInputFactory, users, posts,
                                                 commandFactory, console);
@@ -107,7 +106,5 @@ namespace ConsoleTwitterTests.Acceptance.Steps
 
             console.Received(2).Writeline(Arg.Any<string>());
         }
-
-
     }
 }

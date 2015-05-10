@@ -22,8 +22,8 @@ namespace ConsoleTwitterTests.Unit.Actions
         [SetUp]
         public void BeforeEach()
         {
-            users = Substitute.For<UsersRepository>(new List<User>());
-            posts = Substitute.For<PostsRepository>(new List<Post>());
+            users = new UsersRepository(new List<User>());
+            posts = new PostsRepository(new List<Post>());
             commandFactory = Substitute.For<CommandFactory>();
             console = Substitute.For<WriteToConsole>();
         }

@@ -36,5 +36,12 @@ namespace ConsoleTwitter.Infrastructure
                                    .ToList();
             return latest;
         }
+	
+		public virtual List<Post> GetAllByUserAndFollowees(User user)
+		{
+			return postsList.Where(p => p.User == user || user.Following.Any(f => f == p.User))
+				.OrderByDescending(p => p.PublishedDate)		
+							.ToList();
+		}
     }
 }

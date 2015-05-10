@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleTwitter
 {
-    public class Program
+    class Program
     {
         static WriteToConsole console;
         public static void Main(string[] args)

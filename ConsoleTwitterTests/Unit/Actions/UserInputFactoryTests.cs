@@ -11,14 +11,14 @@ using ConsoleTwitter.Domain;
 namespace ConsoleTwitterTests.Unit.Actions
 {
     [TestFixture]
-    public class CreateUserInputTests
+    public class UserInputFactoryTests
     {
         [Test]
         public void ItShouldCreateAUserInputFromAPostCommand()
         {
             var input = "Ana -> Hello";
-            var createUserInput = new UserInputFactory(input);
-            var userInput = createUserInput.Create();
+            var factory = new UserInputFactory(input);
+			var userInput = factory.Create();
 
             userInput.CommandType.Should().Be(CommandType.Post);
         }
@@ -27,8 +27,8 @@ namespace ConsoleTwitterTests.Unit.Actions
         public void ItShouldCreateAUserInputFromAReadCommand()
         {
             var input = "Ana";
-            var createUserInput = new UserInputFactory(input);
-            var userInput = createUserInput.Create();
+			var factory = new UserInputFactory(input);
+			var userInput = factory.Create();
 
             userInput.CommandType.Should().Be(CommandType.Read);
         }
@@ -37,10 +37,20 @@ namespace ConsoleTwitterTests.Unit.Actions
         public void ItShouldCreateAUserInputFromAFollowCommand()
         {
             var input = "Ana follows Pedro";
-            var createUserInput = new UserInputFactory(input);
-            var userInput = createUserInput.Create();
+			var factory = new UserInputFactory(input);
+			var userInput = factory.Create();
 
             userInput.CommandType.Should().Be(CommandType.Follow);
         }
+
+		[Test]
+		public void ItShouldCreateAUserInputFromAWallCommand()
+		{
+			var input = "Ana wall";
+			var factory = new UserInputFactory(input);
+			var userInput = factory.Create();
+
+			userInput.CommandType.Should().Be(CommandType.Wall);
+		}
     }
 }
