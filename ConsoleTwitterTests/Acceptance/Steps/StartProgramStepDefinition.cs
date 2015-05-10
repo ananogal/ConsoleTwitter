@@ -1,4 +1,5 @@
-﻿using ConsoleTwitter.Actions;
+﻿using ConsoleTwitter;
+using ConsoleTwitter.Actions;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,6 @@ namespace ConsoleTwitterTests.Acceptance.Steps
         public void ThenTheSystemWillWaitForACommand()
         {
             var expectedMessage = "Please enter a command:";
-
             console.Received().Writeline(expectedMessage);
         }
 

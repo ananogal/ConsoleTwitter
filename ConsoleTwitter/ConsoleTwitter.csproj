@@ -41,8 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actions\CreateUserInput.cs" />
+    <Compile Include="Actions\UserInputFactory.cs" />
     <Compile Include="Actions\ExecuteCommand.cs" />
+    <Compile Include="Actions\ExecuteFollowCommand.cs" />
     <Compile Include="Actions\ExecutePostCommand.cs" />
     <Compile Include="Actions\ExecuteReadCommand.cs" />
     <Compile Include="Actions\IExecuteCommand.cs" />

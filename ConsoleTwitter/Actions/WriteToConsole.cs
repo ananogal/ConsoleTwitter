@@ -18,7 +18,7 @@ namespace ConsoleTwitter.Actions
             Console.WriteLine("| Wall | <user name> wall |");
         }
 
-        public void Writeline(string message)
+        public virtual void Writeline(string message)
         {
             Console.WriteLine(message);
         }

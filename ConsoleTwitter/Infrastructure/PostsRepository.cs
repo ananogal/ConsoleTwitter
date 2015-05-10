@@ -17,7 +17,7 @@ namespace ConsoleTwitter.Infrastructure
             this.postsList = postsList;
         }
 
-        public Post Create(User user, string message)
+        public virtual Post Create(User user, string message)
         {
             var post = new Post(user, message);
             postsList.Add(post);

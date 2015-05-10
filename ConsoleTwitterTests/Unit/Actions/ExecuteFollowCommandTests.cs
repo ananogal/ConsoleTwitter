@@ -12,38 +12,45 @@ using System.Threading.Tasks;
 namespace ConsoleTwitterTests.Unit.Actions
 {
     [TestFixture]
-    public class ExecutePostsCommandTests
+    public class ExecuteFollowCommandTests
     {
         string input;
         UserInput userInput;
         UsersRepository users;
-        PostsRepository posts;
-        ExecutePostCommand command;
+        ExecuteFollowCommand command;
 
         [SetUp]
         public void BeforeEach()
         {
-            input = "Ana -> Hello!";
+            input = "Ana follows Pedro";
             var createUserInput = new UserInputFactory(input);
             userInput = createUserInput.Create();
             users = Substitute.For<UsersRepository>(new List<User>());
-            posts = Substitute.For<PostsRepository>(new List<Post>());
-            command = new ExecutePostCommand(userInput, users, posts);
+            command = new ExecuteFollowCommand(userInput, users);
         }
 
         [Test]
-        public void ItShouldColaborateWithUsersRepositoryAndGetTheUser()
+        public void ColaboratesWithUsersRepositoryToGetTheUser()
         {
             command.Execute();
 
-            users.Received().GetUser(Arg.Any<string>());
+            users.Received().GetUser(userInput.Username);
         }
 
         [Test]
-        public void ItShouldColaborateWithPostRepositoryToCreateAPost()
+        public void ColaboratesWithUsersRepositoryToGetUserToFollow()
         {
             command.Execute();
-            posts.Received().Create(Arg.Any<User>(), Arg.Any<string>());
+
+            users.Received().GetUser(userInput.Action);
+        }
+
+        [Test]
+        public void ColaboratesWithUsersRepositoryToFollowTheUser()
+        {
+            command.Execute();
+
+            users.Received().FollowUser(Arg.Any<User>(), Arg.Any<User>());
         }
     }
 }

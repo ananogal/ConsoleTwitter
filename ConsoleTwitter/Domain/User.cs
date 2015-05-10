@@ -8,6 +8,12 @@ namespace ConsoleTwitter.Domain
     public class User
     {
         private string username;
+        private List<User> following;
+
+        public List<User> Following
+        {
+            get { return following; }
+        }
 
         public string Username
         {
@@ -17,6 +23,7 @@ namespace ConsoleTwitter.Domain
         public User(string username)
         {
             this.username = username;
+            this.following = new List<User>();
         }
     }
 }

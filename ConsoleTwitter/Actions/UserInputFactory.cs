@@ -6,11 +6,12 @@ using System.Text;
 
 namespace ConsoleTwitter.Actions
 {
-    public class CreateUserInput
+    public class UserInputFactory
     {
         private string stringCommand;
+        const string FOLLOWS = "follows";
 
-        public CreateUserInput(string stringCommand)
+        public UserInputFactory(string stringCommand)
         {
             this.stringCommand = stringCommand.Trim();
         }
@@ -33,7 +34,12 @@ namespace ConsoleTwitter.Actions
                 {
                     message += userInputArray[i] + " ";
                 }
-                userInput = new UserInput(userInputArray[0].Trim(), userInputArray[1].Trim(), message, CommandType.Post);
+                var username = userInputArray[0].Trim();
+                var command = userInputArray[1].Trim();
+                CommandType type = CommandType.Post;
+                if (command.Equals(FOLLOWS, StringComparison.OrdinalIgnoreCase))
+                    type = CommandType.Follow;
+                userInput = new UserInput(username, command, message, type);
             }
             return userInput; 
         }

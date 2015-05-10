@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
+using ConsoleTwitter.Domain;
 
 namespace ConsoleTwitterTests.Unit.Actions
 {
@@ -16,20 +17,30 @@ namespace ConsoleTwitterTests.Unit.Actions
         public void ItShouldCreateAUserInputFromAPostCommand()
         {
             var input = "Ana -> Hello";
-            var createUserInput = new CreateUserInput(input);
+            var createUserInput = new UserInputFactory(input);
             var userInput = createUserInput.Create();
 
-            userInput.Should().NotBeNull();
+            userInput.CommandType.Should().Be(CommandType.Post);
         }
 
         [Test]
         public void ItShouldCreateAUserInputFromAReadCommand()
         {
             var input = "Ana";
-            var createUserInput = new CreateUserInput(input);
+            var createUserInput = new UserInputFactory(input);
             var userInput = createUserInput.Create();
 
-            userInput.Should().NotBeNull();
+            userInput.CommandType.Should().Be(CommandType.Read);
+        }
+
+        [Test]
+        public void ItShouldCreateAUserInputFromAFollowCommand()
+        {
+            var input = "Ana follows Pedro";
+            var createUserInput = new UserInputFactory(input);
+            var userInput = createUserInput.Create();
+
+            userInput.CommandType.Should().Be(CommandType.Follow);
         }
     }
 }

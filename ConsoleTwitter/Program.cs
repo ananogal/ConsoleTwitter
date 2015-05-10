@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace ConsoleTwitter
 {
-    class Program
+    public class Program
     {
         static WriteToConsole console;
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             console = new WriteToConsole();
             WriteInstructions();
@@ -30,14 +30,15 @@ namespace ConsoleTwitter
             var users = new List<User>();
             var usersRepository = new UsersRepository(users);
             var postsRepository = new PostsRepository(posts);
-            var commandFactory = new CommandFactory(); 
+            var commandFactory = new CommandFactory();
+            var console = new WriteToConsole();
             do
             {
                 console.Writeline("Please enter a command:");
                 var stringCommand = Console.ReadLine();
-                var createUserInput = new CreateUserInput(stringCommand);
+                var createUserInput = new UserInputFactory(stringCommand);
                 var executeCommand = new ExecuteCommand(createUserInput, usersRepository,
-                                                        postsRepository, commandFactory);
+                                                        postsRepository, commandFactory, console);
                 executeCommand.Execute();
             } while (true);
         }

@@ -19,10 +19,10 @@ namespace ConsoleTwitter.Infrastructure
                     }
                 case CommandType.Read:
                     {
-                        return new ExecuteReadCommand(userInput, postsRepository, usersRepository);
+                        return new ExecuteReadCommand(userInput, usersRepository, postsRepository);
                     }
                 case CommandType.Follow:
-                    return null;
+                    return new ExecuteFollowCommand(userInput, usersRepository);
                 case CommandType.Wall:
                     return null;
                 default:

@@ -21,5 +21,18 @@ namespace ConsoleTwitterTests.Unit.Infrastructure
 
             user.Should().NotBeNull();
         }
+
+        [Test]
+        public void ItShouldAddUserToFollowToFollowingList()
+        {
+            var usersList = new List<User>();
+            var repository = new UsersRepository(usersList);
+            var user = repository.GetUser("Ana");
+            var userToFollow = repository.GetUser("Pedro");
+
+            repository.FollowUser(user, userToFollow);
+
+            user.Following.Count().Equals(1);
+        }
     }
 }

@@ -4,25 +4,28 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ConsoleTwitter.Actions
 {
-    public class ExecuteReadCommand : IExecuteCommand
+    public class ExecuteFollowCommand : IExecuteCommand
     {
         private UserInput userInput;
         private UsersRepository users;
-        private PostsRepository posts;
-        public ExecuteReadCommand(UserInput userInput, UsersRepository users, PostsRepository posts)
+
+        public ExecuteFollowCommand(UserInput userInput, UsersRepository users)
         {
             this.userInput = userInput;
-            this.posts = posts;
-            this.users = users; 
+            this.users = users;
         }
 
         public List<Post> Execute()
         {
             var user = users.GetUser(userInput.Username);
-            return posts.GetAllByUser(user);
+            var userToFollow = users.GetUser(userInput.Action);
+            users.FollowUser(user, userToFollow);
+
+            return null;
         }
     }
 }

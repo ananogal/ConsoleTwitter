@@ -17,6 +17,7 @@ namespace ConsoleTwitterTests.Unit.Actions
         UsersRepository users;
         PostsRepository posts;
         CommandFactory commandFactory;
+        WriteToConsole console;
 
         [SetUp]
         public void BeforeEach()
@@ -24,14 +25,15 @@ namespace ConsoleTwitterTests.Unit.Actions
             users = Substitute.For<UsersRepository>(new List<User>());
             posts = Substitute.For<PostsRepository>(new List<Post>());
             commandFactory = Substitute.For<CommandFactory>();
+            console = Substitute.For<WriteToConsole>();
         }
         
         [Test]
         public void ItShouldColaborateWithCreateUserInputToCreateAUserInput()
         {
             string userImput = "Ana   ";
-            var userInputFactory = Substitute.For<CreateUserInput>(userImput);
-            var command = new ExecuteCommand(userInputFactory, users, posts, commandFactory);
+            var userInputFactory = Substitute.For<UserInputFactory>(userImput);
+            var command = new ExecuteCommand(userInputFactory, users, posts, commandFactory, console);
 
             command.Execute();
 
@@ -39,15 +41,31 @@ namespace ConsoleTwitterTests.Unit.Actions
         }
 
         [Test]
-        public void ItShouldColaborateWithCommandFactoryToCreateAPostCommand()
+        public void ItShouldColaborateWithCommandFactoryToCreateACommand()
         {
             string userImput = "Ana -> Hello!";
-            var userInputFactory = Substitute.For<CreateUserInput>(userImput);
-            var command = new ExecuteCommand(userInputFactory, users, posts, commandFactory);
+            var userInputFactory = Substitute.For<UserInputFactory>(userImput);
+            var command = new ExecuteCommand(userInputFactory, users, posts, commandFactory, console);
 
             command.Execute();
 
             commandFactory.Received().Create(Arg.Any<UserInput>(), Arg.Any<UsersRepository>(), Arg.Any<PostsRepository>());
+        }
+
+        [Test]
+        public void ColaboratesWithConsoleToWriteResults()
+        {
+            string userInput = "Ana -> Hello!";
+            var userInputFactory = Substitute.For<UserInputFactory>(userInput);
+            var command = new ExecuteCommand(userInputFactory, users, posts, commandFactory, console);
+            command.Execute();
+            
+            userInput = "Ana";
+            var userInputFactory2 = Substitute.For<UserInputFactory>(userInput);
+            command = new ExecuteCommand(userInputFactory2, users, posts, commandFactory, console);
+            command.Execute();
+
+            console.Received().Writeline(Arg.Any<string>());
         }
     }
 }

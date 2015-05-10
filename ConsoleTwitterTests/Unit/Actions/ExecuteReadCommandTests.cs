@@ -25,14 +25,22 @@ namespace ConsoleTwitterTests.Unit.Actions
         public void BeforeEach()
         {
             input = "Ana   ";
-            var createUserInput = new CreateUserInput(input);
+            var createUserInput = new UserInputFactory(input);
             userInput = createUserInput.Create();
             users = Substitute.For<UsersRepository>(new List<User>());
             posts = Substitute.For<PostsRepository>(new List<Post>());
-            command = new ExecuteReadCommand(userInput, posts, users);
+            command = new ExecuteReadCommand(userInput, users, posts);
         }
 
-        
+
+        [Test]
+        public void ItShouldColaborateWithUsersRepositoryToGetTheUser()
+        {
+            command.Execute();
+
+            users.Received().GetUser(Arg.Any<string>());
+        }
+
         [Test]
         public void ItShouldColaborateWithPostsRepositoryToGetPosts()
         {

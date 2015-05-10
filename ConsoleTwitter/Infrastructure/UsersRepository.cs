@@ -14,7 +14,7 @@ namespace ConsoleTwitter.Infrastructure
         {
             users = usersList;
         }
-        public User GetUser(string username)
+        public virtual User GetUser(string username)
         {
             var index = users.FindIndex(u => u.Username == username);
             if (index != -1)
@@ -28,6 +28,11 @@ namespace ConsoleTwitter.Infrastructure
 
                 return user;
             }
+        }
+
+        public virtual void FollowUser(User user, User userToFollow)
+        {
+            user.Following.Add(userToFollow);
         }
     }
 }
