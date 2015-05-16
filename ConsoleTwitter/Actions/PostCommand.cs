@@ -7,13 +7,13 @@ using System.Text;
 
 namespace ConsoleTwitter.Actions
 {
-    public class ExecutePostCommand : IExecuteCommand
+    public class PostCommand : ICommand
     {
         private UserInput userInput;
         private UsersRepository usersRepository;
         private PostsRepository postsRepository;
 
-        public ExecutePostCommand(UserInput userInput, UsersRepository usersRepository, PostsRepository postsRepository)
+        public PostCommand(UserInput userInput, UsersRepository usersRepository, PostsRepository postsRepository)
         {
             this.userInput= userInput;
             this.usersRepository = usersRepository;

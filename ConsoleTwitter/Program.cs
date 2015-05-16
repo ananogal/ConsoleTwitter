@@ -11,10 +11,10 @@ namespace ConsoleTwitter
 {
     class Program
     {
-        static WriteToConsole console;
+        static ConsoleWriter console;
         public static void Main(string[] args)
         {
-            console = new WriteToConsole();
+            console = new ConsoleWriter();
             WriteInstructions();
             WaitForCommand();
         }
@@ -31,13 +31,13 @@ namespace ConsoleTwitter
             var usersRepository = new UsersRepository(users);
             var postsRepository = new PostsRepository(posts);
             var commandFactory = new CommandFactory();
-            var console = new WriteToConsole();
+            var console = new ConsoleWriter();
             do
             {
-                console.Writeline("Please enter a command:");
+                console.WriteMessage("Please enter a command:");
                 var stringCommand = Console.ReadLine();
-                var createUserInput = new UserInputFactory(stringCommand);
-                var executeCommand = new ExecuteCommand(createUserInput, usersRepository,
+                var createUserInput = new UserInputParser(stringCommand);
+                var executeCommand = new Command(createUserInput, usersRepository,
                                                         postsRepository, commandFactory, console);
                 executeCommand.Execute();
             } while (true);

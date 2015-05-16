@@ -10,24 +10,30 @@ namespace ConsoleTwitter.Actions
 {
     public class CommandFactory
     {
-        public IExecuteCommand Create(UserInput userInput, UsersRepository usersRepository, PostsRepository postsRepository)
+        public ICommand Create(UserInput userInput, UsersRepository usersRepository, PostsRepository postsRepository)
         {
             switch (userInput.CommandType)
             {
                 case CommandType.Post:
                     {
-                        return new ExecutePostCommand(userInput, usersRepository, postsRepository);
+                        return new PostCommand(userInput, usersRepository, postsRepository);
                     }
                 case CommandType.Read:
                     {
-                        return new ExecuteReadCommand(userInput, usersRepository, postsRepository);
+                        return new ReadCommand(userInput, usersRepository, postsRepository);
                     }
                 case CommandType.Follow:
-                    return new ExecuteFollowCommand(userInput, usersRepository);
+                    { 
+                        return new FollowCommand(userInput, usersRepository); 
+                    }
                 case CommandType.Wall:
-				return new ExecuteWallCommand(userInput, usersRepository, postsRepository);
+                    {
+                        return new WallCommand(userInput, usersRepository, postsRepository);
+                    }
                 default:
-                    return null;
+                    {
+                        return null;
+                    }
             }
         }
     }

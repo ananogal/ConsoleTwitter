@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleTwitter.Actions
 {
-    public interface IExecuteCommand
+    public interface ICommand
     {
         List<Post> Execute();
     }

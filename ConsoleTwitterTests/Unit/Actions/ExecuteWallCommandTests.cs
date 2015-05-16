@@ -15,17 +15,17 @@ namespace ConsoleTwitterTests.Unit.Actions
 		UserInput userInput;
 		UsersRepository users;
 		PostsRepository posts;
-		ExecuteWallCommand command;
+		WallCommand command;
 
 		[SetUp]
 		public void BeforeEach()
 		{
 			input = "Ana wall";
-			var createUserInput = new UserInputFactory(input);
-			userInput = createUserInput.Create();
+			var createUserInput = new UserInputParser(input);
+			userInput = createUserInput.Parse();
 			users = Substitute.For<UsersRepository>(new List<User>());
 			posts = Substitute.For<PostsRepository>(new List<Post>());
-			command = new ExecuteWallCommand(userInput, users, posts);
+			command = new WallCommand(userInput, users, posts);
 		}
 
 		[Test]

@@ -17,16 +17,16 @@ namespace ConsoleTwitterTests.Unit.Actions
         string input;
         UserInput userInput;
         UsersRepository users;
-        ExecuteFollowCommand command;
+        FollowCommand command;
 
         [SetUp]
         public void BeforeEach()
         {
             input = "Ana follows Pedro";
-            var createUserInput = new UserInputFactory(input);
-            userInput = createUserInput.Create();
+            var createUserInput = new UserInputParser(input);
+            userInput = createUserInput.Parse();
             users = Substitute.For<UsersRepository>(new List<User>());
-            command = new ExecuteFollowCommand(userInput, users);
+            command = new FollowCommand(userInput, users);
         }
 
         [Test]

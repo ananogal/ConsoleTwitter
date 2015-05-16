@@ -18,7 +18,7 @@ namespace ConsoleTwitterTests.Acceptance.Steps
         UsersRepository users = new UsersRepository(new List<User>());
         List<Post> postsList = new List<Post>();
         CommandFactory commandFactory = new CommandFactory();
-        WriteToConsole console = new WriteToConsole();
+        ConsoleWriter console = new ConsoleWriter();
 
 
         [Given(@"the system is waiting for a command")]
@@ -35,9 +35,9 @@ namespace ConsoleTwitterTests.Acceptance.Steps
         [Then(@"I should create a post")]
         public void ThenIShouldCreateAPost()
         {
-            var userInputFactory = new UserInputFactory(stringCommand);
+            var userInputFactory = new UserInputParser(stringCommand);
             var posts = new PostsRepository(postsList);
-            var command = new ExecuteCommand(userInputFactory, users, posts,
+            var command = new Command(userInputFactory, users, posts,
                                                 commandFactory, console);
             command.Execute();
 
@@ -53,16 +53,16 @@ namespace ConsoleTwitterTests.Acceptance.Steps
         [Then(@"I should see all my posts")]
         public void ThenIShouldSeeAllMyPosts()
         {
-            var userInputFactory = new UserInputFactory(stringCommand);
+            var userInputFactory = new UserInputParser(stringCommand);
             var user = users.GetUser(stringCommand);
             postsList = new List<Post> { new Post(user, "Hello!") };
             var posts = new PostsRepository(postsList);
-            console = Substitute.For<WriteToConsole>();
-            var command = new ExecuteCommand(userInputFactory, users, posts,
+            console = Substitute.For<ConsoleWriter>();
+            var command = new Command(userInputFactory, users, posts,
                                                 commandFactory, console);
             command.Execute();
 
-            console.Received().Writeline(Arg.Any<string>());
+            console.Received().WriteMessage(Arg.Any<string>());
         }
 
         [When(@"I enter a follow command")]
@@ -74,9 +74,9 @@ namespace ConsoleTwitterTests.Acceptance.Steps
         [Then(@"I should follow the userToFollow")]
         public void ThenIShouldFollowTheUserToFollow()
         {
-            var userInputFactory = new UserInputFactory(stringCommand);
+            var userInputFactory = new UserInputParser(stringCommand);
             var posts = new PostsRepository(postsList);
-            var command = new ExecuteCommand(userInputFactory, users, posts,
+            var command = new Command(userInputFactory, users, posts,
                                                 commandFactory, console);
             command.Execute();
             var user = users.GetUser("Ana");
@@ -93,18 +93,18 @@ namespace ConsoleTwitterTests.Acceptance.Steps
         [Then(@"I should see all my posts and the posts from who I follow")]
         public void ThenIShouldSeeAllMyPostsAndThePostsFromWhoIFollow()
         {
-            var userInputFactory = new UserInputFactory(stringCommand);
+            var userInputFactory = new UserInputParser(stringCommand);
             var user = users.GetUser("Ana");
             var followingUser = users.GetUser("Pedro");
             postsList = new List<Post> { new Post(user, "Hello!"), new Post(followingUser, "Hello from Pedro") };
             users.FollowUser(user, followingUser);
             var posts = new PostsRepository(postsList);
-            console = Substitute.For<WriteToConsole>();
-            var command = new ExecuteCommand(userInputFactory, users, posts,
+            console = Substitute.For<ConsoleWriter>();
+            var command = new Command(userInputFactory, users, posts,
                                                 commandFactory, console);
             command.Execute();
 
-            console.Received(2).Writeline(Arg.Any<string>());
+            console.Received(2).WriteMessage(Arg.Any<string>());
         }
     }
 }

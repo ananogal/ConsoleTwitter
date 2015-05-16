@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ConsoleTwitter.Actions
 {
-    public class WriteToConsole
+    public class ConsoleWriter
     {
         public void WriteWelcomeMessage()
         {
@@ -18,7 +18,7 @@ namespace ConsoleTwitter.Actions
             Console.WriteLine("| Wall | <user name> wall |");
         }
 
-        public virtual void Writeline(string message)
+        public virtual void WriteMessage(string message)
         {
             Console.WriteLine(message);
         }

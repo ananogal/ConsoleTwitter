@@ -39,6 +39,11 @@ namespace ConsoleTwitter.Domain
             get { return username; }
         }
 
+        public UserInput(string username, CommandType type)
+            :this(username, null, null, type)
+        {
+        }
+
         public UserInput(string username, string command, string action, CommandType type)
         {
             this.username = username;

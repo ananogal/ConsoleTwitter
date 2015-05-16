@@ -12,7 +12,7 @@ namespace ConsoleTwitterTests.Acceptance.Steps
     [Binding]
     public sealed class StartProgramStepDefinition
     {
-        WriteToConsole console = Substitute.For<WriteToConsole>();
+        ConsoleWriter console = Substitute.For<ConsoleWriter>();
 
         [Given(@"I am a user")]
         public void GivenIAmAUser()

@@ -19,17 +19,17 @@ namespace ConsoleTwitterTests.Unit.Actions
         UserInput userInput;
         UsersRepository users;
         PostsRepository posts;
-        ExecuteReadCommand command;
+        ReadCommand command;
 
         [SetUp]
         public void BeforeEach()
         {
             input = "Ana   ";
-            var createUserInput = new UserInputFactory(input);
-            userInput = createUserInput.Create();
+            var createUserInput = new UserInputParser(input);
+            userInput = createUserInput.Parse();
             users = Substitute.For<UsersRepository>(new List<User>());
             posts = Substitute.For<PostsRepository>(new List<Post>());
-            command = new ExecuteReadCommand(userInput, users, posts);
+            command = new ReadCommand(userInput, users, posts);
         }
 			
         [Test]

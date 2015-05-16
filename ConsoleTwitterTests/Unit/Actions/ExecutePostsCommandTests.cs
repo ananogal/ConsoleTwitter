@@ -18,17 +18,17 @@ namespace ConsoleTwitterTests.Unit.Actions
         UserInput userInput;
         UsersRepository users;
         PostsRepository posts;
-        ExecutePostCommand command;
+        PostCommand command;
 
         [SetUp]
         public void BeforeEach()
         {
             input = "Ana -> Hello!";
-            var createUserInput = new UserInputFactory(input);
-            userInput = createUserInput.Create();
+            var createUserInput = new UserInputParser(input);
+            userInput = createUserInput.Parse();
             users = Substitute.For<UsersRepository>(new List<User>());
             posts = Substitute.For<PostsRepository>(new List<Post>());
-            command = new ExecutePostCommand(userInput, users, posts);
+            command = new PostCommand(userInput, users, posts);
         }
 
         [Test]
