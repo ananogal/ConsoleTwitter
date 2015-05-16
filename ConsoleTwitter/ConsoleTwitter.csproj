@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Actions\Command.cs" />
     <Compile Include="Actions\FollowCommand.cs" />
+    <Compile Include="Actions\NotFoundCommand.cs" />
     <Compile Include="Actions\PostCommand.cs" />
     <Compile Include="Actions\ReadCommand.cs" />
     <Compile Include="Actions\ICommand.cs" />

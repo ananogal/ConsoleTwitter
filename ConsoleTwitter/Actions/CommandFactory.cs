@@ -32,7 +32,7 @@ namespace ConsoleTwitter.Actions
                     }
                 default:
                     {
-                        return null;
+                        return new NotFoundCommand();
                     }
             }
         }
