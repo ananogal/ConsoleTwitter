@@ -25,5 +25,6 @@ namespace ConsoleTwitter.Domain
             this.username = username;
             this.following = new List<User>();
         }
+
     }
 }

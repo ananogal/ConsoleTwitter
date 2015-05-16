@@ -21,7 +21,7 @@ namespace ConsoleTwitterTests.Unit.Actions
         public void BeforeEach()
         {
             input = "Ana wall";
-            var userInput = new UserInputParser().Parse(input);
+            userInput = new UserInputParser().Parse(input);
 
             users = Substitute.For<UsersRepository>();
             posts = Substitute.For<PostsRepository>();

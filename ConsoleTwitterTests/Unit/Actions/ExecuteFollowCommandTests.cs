@@ -47,9 +47,13 @@ namespace ConsoleTwitterTests.Unit.Actions
         [Test]
         public void ColaboratesWithUsersRepositoryToFollowTheUser()
         {
+            var user = users.GetUser("Ana");
+            var followee = users.GetUser("Pedro");
+            command = new FollowCommand(userInput, users);
             command.Execute();
 
-            users.Received().FollowUser(Arg.Any<User>(), Arg.Any<User>());
+
+            users.Received().FollowUser(user, followee);
         }
     }
 }
