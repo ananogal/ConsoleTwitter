@@ -23,9 +23,9 @@ namespace ConsoleTwitterTests.Unit.Infrastructure
         public void BeforeEach()
         {
             postList = new List<Post>();
-            repository = new PostsRepository(postList);
+            repository = new PostsRepository();
             usersList = new List<User>();
-            user = new UsersRepository(usersList).GetUser("Ana");
+            user = new UsersRepository().GetUser("Ana");
         }
 
         [Test]
@@ -62,7 +62,7 @@ namespace ConsoleTwitterTests.Unit.Infrastructure
 		[Test]
 		public void ItShouldGetAllPostsForUserAndFollowees()
 		{
-			var users = new UsersRepository(usersList);
+			var users = new UsersRepository();
 			user = users.GetUser ("Ana");
 			var userToFollow = users.GetUser("Pedro");
 			users.FollowUser (user, userToFollow);
@@ -77,7 +77,7 @@ namespace ConsoleTwitterTests.Unit.Infrastructure
 		[Test]
 		public void ItShouldGetAllPostsForUserAndFolloweesOrderByPusblishedDateDescending()
 		{
-			var users = new UsersRepository(usersList);
+			var users = new UsersRepository();
 			user = users.GetUser ("Ana");
 			var userToFollow = users.GetUser("Pedro");
 			users.FollowUser (user, userToFollow);

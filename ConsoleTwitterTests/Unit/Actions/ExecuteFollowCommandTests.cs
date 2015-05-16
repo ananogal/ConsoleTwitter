@@ -25,7 +25,7 @@ namespace ConsoleTwitterTests.Unit.Actions
             input = "Ana follows Pedro";
             var createUserInput = new UserInputParser(input);
             userInput = createUserInput.Parse();
-            users = Substitute.For<UsersRepository>(new List<User>());
+            users = Substitute.For<UsersRepository>();
             command = new FollowCommand(userInput, users);
         }
 

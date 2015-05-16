@@ -26,8 +26,8 @@ namespace ConsoleTwitterTests.Unit.Actions
             input = "Ana -> Hello!";
             var createUserInput = new UserInputParser(input);
             userInput = createUserInput.Parse();
-            users = Substitute.For<UsersRepository>(new List<User>());
-            posts = Substitute.For<PostsRepository>(new List<Post>());
+            users = Substitute.For<UsersRepository>();
+            posts = Substitute.For<PostsRepository>();
             command = new PostCommand(userInput, users, posts);
         }
 

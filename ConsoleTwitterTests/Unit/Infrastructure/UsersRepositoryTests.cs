@@ -16,7 +16,7 @@ namespace ConsoleTwitterTests.Unit.Infrastructure
         public void ItShouldGetAUserByUserName()
         {
             var usersList = new List<User>();
-            var repository = new UsersRepository(usersList);
+            var repository = new UsersRepository();
             var user = repository.GetUser("Ana");
 
             user.Should().NotBeNull();
@@ -26,7 +26,7 @@ namespace ConsoleTwitterTests.Unit.Infrastructure
         public void ItShouldAddUserToFollowToFollowingList()
         {
             var usersList = new List<User>();
-            var repository = new UsersRepository(usersList);
+            var repository = new UsersRepository();
             var user = repository.GetUser("Ana");
             var userToFollow = repository.GetUser("Pedro");
 

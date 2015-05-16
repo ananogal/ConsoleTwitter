@@ -15,11 +15,9 @@ namespace ConsoleTwitterTests.Acceptance.Steps
     public sealed class InteractWithProgramStepDefinition
     {
         string stringCommand = "";
-        UsersRepository users = new UsersRepository(new List<User>());
-        List<Post> postsList = new List<Post>();
+        UsersRepository users = new UsersRepository();
         CommandFactory commandFactory = new CommandFactory();
         ConsoleWriter console = new ConsoleWriter();
-
 
         [Given(@"the system is waiting for a command")]
         public void GivenTheSystemIsWaitingForACommand()
@@ -36,12 +34,12 @@ namespace ConsoleTwitterTests.Acceptance.Steps
         public void ThenIShouldCreateAPost()
         {
             var userInputFactory = new UserInputParser(stringCommand);
-            var posts = new PostsRepository(postsList);
+            var posts = new PostsRepository();
             var command = new Command(userInputFactory, users, posts,
                                                 commandFactory, console);
             command.Execute();
 
-            postsList.Count().Should().Be(1);
+            posts.Count().Should().Be(1);
         }
 
         [When(@"I enter a read command")]
@@ -55,8 +53,9 @@ namespace ConsoleTwitterTests.Acceptance.Steps
         {
             var userInputFactory = new UserInputParser(stringCommand);
             var user = users.GetUser(stringCommand);
-            postsList = new List<Post> { new Post(user, "Hello!") };
-            var posts = new PostsRepository(postsList);
+            var posts = new PostsRepository();
+            posts.Create(user, "Hello!");
+
             console = Substitute.For<ConsoleWriter>();
             var command = new Command(userInputFactory, users, posts,
                                                 commandFactory, console);
@@ -75,7 +74,7 @@ namespace ConsoleTwitterTests.Acceptance.Steps
         public void ThenIShouldFollowTheUserToFollow()
         {
             var userInputFactory = new UserInputParser(stringCommand);
-            var posts = new PostsRepository(postsList);
+            var posts = new PostsRepository();
             var command = new Command(userInputFactory, users, posts,
                                                 commandFactory, console);
             command.Execute();
@@ -96,9 +95,10 @@ namespace ConsoleTwitterTests.Acceptance.Steps
             var userInputFactory = new UserInputParser(stringCommand);
             var user = users.GetUser("Ana");
             var followingUser = users.GetUser("Pedro");
-            postsList = new List<Post> { new Post(user, "Hello!"), new Post(followingUser, "Hello from Pedro") };
             users.FollowUser(user, followingUser);
-            var posts = new PostsRepository(postsList);
+            var posts = new PostsRepository();
+            posts.Create(user, "Hello!");
+            posts.Create(followingUser, "Hello from Pedro");
             console = Substitute.For<ConsoleWriter>();
             var command = new Command(userInputFactory, users, posts,
                                                 commandFactory, console);

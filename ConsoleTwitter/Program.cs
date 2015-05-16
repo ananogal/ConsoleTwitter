@@ -26,10 +26,8 @@ namespace ConsoleTwitter
 
         private static void WaitForCommand()
         {
-            var posts = new List<Post>();
-            var users = new List<User>();
-            var usersRepository = new UsersRepository(users);
-            var postsRepository = new PostsRepository(posts);
+            var usersRepository = new UsersRepository();
+            var postsRepository = new PostsRepository();
             var commandFactory = new CommandFactory();
             var console = new ConsoleWriter();
             do

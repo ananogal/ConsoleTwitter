@@ -10,10 +10,11 @@ namespace ConsoleTwitter.Infrastructure
     {
         private List<User> users;
 
-        public UsersRepository(List<User>usersList)
+        public UsersRepository()
         {
-            users = usersList;
+            users = new List<User>();
         }
+
         public virtual User GetUser(string username)
         {
             var index = users.FindIndex(u => u.Username == username);

@@ -12,9 +12,9 @@ namespace ConsoleTwitter.Infrastructure
 	{
 		private List<Post> postsList;
 
-		public PostsRepository(List<Post> postsList)
+		public PostsRepository()
 		{
-			this.postsList = postsList;
+			this.postsList = new List<Post>();
 		}
 
 		public virtual Post Create(User user, string message)
