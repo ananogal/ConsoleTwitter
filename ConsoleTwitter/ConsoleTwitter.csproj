@@ -45,7 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actions\Command.cs" />
     <Compile Include="Actions\FollowCommand.cs" />
     <Compile Include="Actions\NotFoundCommand.cs" />
     <Compile Include="Actions\PostCommand.cs" />

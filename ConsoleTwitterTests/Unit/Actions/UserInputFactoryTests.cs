@@ -17,8 +17,7 @@ namespace ConsoleTwitterTests.Unit.Actions
         public void ItShouldCreateAUserInputFromAPostCommand()
         {
             var input = "Ana -> Hello";
-            var factory = new UserInputParser(input);
-			var userInput = factory.Parse();
+			var userInput = new UserInputParser().Parse(input);
 
             userInput.CommandType.Should().Be(CommandType.Post);
         }
@@ -27,8 +26,7 @@ namespace ConsoleTwitterTests.Unit.Actions
         public void ItShouldCreateAUserInputFromAReadCommand()
         {
             var input = "Ana";
-			var factory = new UserInputParser(input);
-			var userInput = factory.Parse();
+            var userInput = new UserInputParser().Parse(input);
 
             userInput.CommandType.Should().Be(CommandType.Read);
         }
@@ -37,8 +35,7 @@ namespace ConsoleTwitterTests.Unit.Actions
         public void ItShouldCreateAUserInputFromAFollowCommand()
         {
             var input = "Ana follows Pedro";
-			var factory = new UserInputParser(input);
-			var userInput = factory.Parse();
+            var userInput = new UserInputParser().Parse(input);
 
             userInput.CommandType.Should().Be(CommandType.Follow);
         }
@@ -47,8 +44,7 @@ namespace ConsoleTwitterTests.Unit.Actions
 		public void ItShouldCreateAUserInputFromAWallCommand()
 		{
 			var input = "Ana wall";
-			var factory = new UserInputParser(input);
-			var userInput = factory.Parse();
+            var userInput = new UserInputParser().Parse(input);
 
 			userInput.CommandType.Should().Be(CommandType.Wall);
 		}

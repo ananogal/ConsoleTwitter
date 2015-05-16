@@ -23,8 +23,7 @@ namespace ConsoleTwitterTests.Unit.Actions
         public void BeforeEach()
         {
             input = "Ana follows Pedro";
-            var createUserInput = new UserInputParser(input);
-            userInput = createUserInput.Parse();
+            userInput = new UserInputParser().Parse(input);
             users = Substitute.For<UsersRepository>();
             command = new FollowCommand(userInput, users);
         }

@@ -6,17 +6,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
+using ConsoleTwitter.Infrastructure;
+using NodaTime.Testing;
+using NodaTime;
 
 namespace ConsoleTwitterTests.Unit.Helpers
 {
     [TestFixture]
     public class FormatTimeTests
     {
+        private Instant now = Instant.FromUtc(2015, 1, 1, 12, 0, 0);
+
+        [SetUp]
+        public void BeforeEach()
+        {
+            Clock.ClockExpression = () => new FakeClock(now).Now.ToDateTimeUtc();
+        }
+
         [Test]
         public void ItShouldReturnAStringWithOneSecondPassed()
         {
-            var dateToFormat = DateTime.Now.AddSeconds(-1);
-
+            var dateToFormat = Clock.Now;
+            AdjustClockForElapsedTime(Duration.FromSeconds(1));
+            
             var result = FormatTime.Format(dateToFormat);
 
             result.Should().Be("(1 second ago)");
@@ -25,7 +37,9 @@ namespace ConsoleTwitterTests.Unit.Helpers
         [Test]
         public void ItShouldReturnAStringWithTheSecondsPassed()
         {
-            var dateToFormat = DateTime.Now.AddSeconds(-5);
+            var dateToFormat = Clock.Now;
+            AdjustClockForElapsedTime(Duration.FromSeconds(5));
+
             var result = FormatTime.Format(dateToFormat);
 
             result.Should().Be("(5 seconds ago)");
@@ -34,7 +48,8 @@ namespace ConsoleTwitterTests.Unit.Helpers
         [Test]
         public void ItShouldReturnAStringWithOneMinutePassed()
         {
-            var dateToFormat = DateTime.Now.AddSeconds(-60);
+            var dateToFormat = Clock.Now;
+            AdjustClockForElapsedTime(Duration.FromMinutes(1));
 
             var result = FormatTime.Format(dateToFormat);
 
@@ -44,7 +59,8 @@ namespace ConsoleTwitterTests.Unit.Helpers
         [Test]
         public void ItShouldReturnAStringWithMinutesPassed()
         {
-            var dateToFormat = DateTime.Now.AddMinutes(-5);
+            var dateToFormat = Clock.Now;
+            AdjustClockForElapsedTime(Duration.FromMinutes(5));
 
             var result = FormatTime.Format(dateToFormat);
 
@@ -54,7 +70,8 @@ namespace ConsoleTwitterTests.Unit.Helpers
         [Test]
         public void ItShouldReturnAStringWithOneDayPassed()
         {
-            var dateToFormat = DateTime.Now.AddDays(-1);
+            var dateToFormat = Clock.Now;
+            AdjustClockForElapsedTime(Duration.FromStandardDays(1));
 
             var result = FormatTime.Format(dateToFormat);
 
@@ -64,11 +81,17 @@ namespace ConsoleTwitterTests.Unit.Helpers
         [Test]
         public void ItShouldReturnAStringWithDaysPassed()
         {
-            var dateToFormat = DateTime.Now.AddDays(-5);
+            var dateToFormat = Clock.Now;
+            AdjustClockForElapsedTime(Duration.FromStandardDays(5));
 
             var result = FormatTime.Format(dateToFormat);
 
             result.Should().Be("(5 days ago)");
+        }
+
+        private void AdjustClockForElapsedTime(Duration elapsed)
+        {
+            Clock.ClockExpression = () => new FakeClock(now + elapsed).Now.ToDateTimeUtc();
         }
     }
 }

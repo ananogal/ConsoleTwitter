@@ -1,4 +1,5 @@
-﻿using ConsoleTwitter.Actions;
+﻿using ConsoleTwitter;
+using ConsoleTwitter.Actions;
 using ConsoleTwitter.Domain;
 using ConsoleTwitter.Infrastructure;
 using NSubstitute;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 namespace ConsoleTwitterTests.Unit.Actions
 {
     [TestFixture]
-    public class ExecuteCommandTests
+    public class ProgramTests
     {
         UsersRepository users;
         PostsRepository posts;
@@ -31,23 +32,23 @@ namespace ConsoleTwitterTests.Unit.Actions
         [Test]
         public void ItShouldColaborateWithCreateUserInputToCreateAUserInput()
         {
-            string userImput = "Ana   ";
-            var userInputFactory = Substitute.For<UserInputParser>(userImput);
-            var command = new Command(userInputFactory, users, posts, commandFactory, console);
+            string userInput = "Ana   ";
+            var userInputFactory = Substitute.For<UserInputParser>();
+            var program = new Program(userInputFactory, users, posts, commandFactory, console);
 
-            command.Execute();
+            program.WaitForCommand();
 
-            userInputFactory.Received().Parse();
+            userInputFactory.Received().Parse(userInput);
         }
 
         [Test]
         public void ItShouldColaborateWithCommandFactoryToCreateACommand()
         {
             string userImput = "Ana -> Hello!";
-            var userInputFactory = Substitute.For<UserInputParser>(userImput);
-            var command = new Command(userInputFactory, users, posts, commandFactory, console);
+            var userInputParser = Substitute.For<UserInputParser>();
+            var program = new Program(userInputParser, users, posts, commandFactory, console);
 
-            command.Execute();
+            program.Execute(userInputParser.Parse(userImput));
 
             commandFactory.Received().Create(Arg.Any<UserInput>(), Arg.Any<UsersRepository>(), Arg.Any<PostsRepository>());
         }
@@ -56,14 +57,14 @@ namespace ConsoleTwitterTests.Unit.Actions
         public void ColaboratesWithConsoleToWriteResults()
         {
             string userInput = "Ana -> Hello!";
-            var userInputFactory = Substitute.For<UserInputParser>(userInput);
-            var command = new Command(userInputFactory, users, posts, commandFactory, console);
-            command.Execute();
+            var userInputParser = Substitute.For<UserInputParser>();
+            var program = new Program(userInputParser, users, posts, commandFactory, console);
+            program.Execute(userInputParser.Parse(userInput));
             
             userInput = "Ana";
-            var userInputFactory2 = Substitute.For<UserInputParser>(userInput);
-            command = new Command(userInputFactory2, users, posts, commandFactory, console);
-            command.Execute();
+            userInputParser= Substitute.For<UserInputParser>();
+            program = new Program(userInputParser, users, posts, commandFactory, console);
+            program.Execute(userInputParser.Parse(userInput));
 
             console.Received().WriteMessage(Arg.Any<string>());
         }

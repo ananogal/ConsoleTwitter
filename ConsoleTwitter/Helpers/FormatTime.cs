@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsoleTwitter.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace ConsoleTwitter.Helpers
         public static string Format(DateTime date)
         {
             DateTime dateToFormat = date;
-            var ts = dateToFormat.Subtract(DateTime.Now);
+            var ts = dateToFormat.Subtract(Clock.Now);
 
             var days = Math.Abs(ts.Days);
             if (days > 0)

@@ -12,13 +12,14 @@ namespace ConsoleTwitter.Domain
         const string FOLLOWS = "follows";
         const string WALL = "wall";
         
-        public UserInputParser(string stringCommand)
+        public UserInputParser()
+        {
+            
+        }
+
+        public UserInput Parse(string stringCommand)
         {
             this.stringCommand = stringCommand.Trim();
-        }
-        
-        public UserInput Parse()
-        {
             var separator = new char[] { ' ' };
             var tokenizedUserInput = this.stringCommand.Split(
                                         separator, 

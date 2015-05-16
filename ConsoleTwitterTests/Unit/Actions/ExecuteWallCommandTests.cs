@@ -8,38 +8,38 @@ using System.Collections.Generic;
 
 namespace ConsoleTwitterTests.Unit.Actions
 {
-	[TestFixture]
-	public class ExecuteWallCommandTests
-	{
-		string input;
-		UserInput userInput;
-		UsersRepository users;
-		PostsRepository posts;
-		WallCommand command;
+    [TestFixture]
+    public class ExecuteWallCommandTests
+    {
+        string input;
+        UserInput userInput;
+        UsersRepository users;
+        PostsRepository posts;
+        WallCommand command;
 
-		[SetUp]
-		public void BeforeEach()
-		{
-			input = "Ana wall";
-			var createUserInput = new UserInputParser(input);
-			userInput = createUserInput.Parse();
-			users = Substitute.For<UsersRepository>();
-			posts = Substitute.For<PostsRepository>();
-			command = new WallCommand(userInput, users, posts);
-		}
+        [SetUp]
+        public void BeforeEach()
+        {
+            input = "Ana wall";
+            var userInput = new UserInputParser().Parse(input);
 
-		[Test]
-		public void ColaboratesWithUsersRepositoryToGetAUser()
-		{
-			command.Execute();
-			users.Received().GetUser(Arg.Any<string>());
-		}
+            users = Substitute.For<UsersRepository>();
+            posts = Substitute.For<PostsRepository>();
+            command = new WallCommand(userInput, users, posts);
+        }
 
-		[Test]
-		public void ColaboratesWithPostsRepositoryToGetPosts()
-		{
-			command.Execute ();
-			posts.Received().GetAllByUserAndFollowees(Arg.Any<User>());
-		}
-	}
+        [Test]
+        public void ColaboratesWithUsersRepositoryToGetAUser()
+        {
+            command.Execute();
+            users.Received().GetUser(Arg.Any<string>());
+        }
+
+        [Test]
+        public void ColaboratesWithPostsRepositoryToGetPosts()
+        {
+            command.Execute ();
+            posts.Received().GetAllByUserAndFollowees(Arg.Any<User>());
+        }
+    }
 }

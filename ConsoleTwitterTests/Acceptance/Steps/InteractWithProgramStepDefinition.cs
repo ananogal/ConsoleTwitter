@@ -8,13 +8,14 @@ using System.Text;
 using TechTalk.SpecFlow;
 using FluentAssertions;
 using NSubstitute;
+using ConsoleTwitter;
 
 namespace ConsoleTwitterTests.Acceptance.Steps
 {
     [Binding]
     public sealed class InteractWithProgramStepDefinition
     {
-        string stringCommand = "";
+        string userInput = "";
         UsersRepository users = new UsersRepository();
         CommandFactory commandFactory = new CommandFactory();
         ConsoleWriter console = new ConsoleWriter();
@@ -27,17 +28,17 @@ namespace ConsoleTwitterTests.Acceptance.Steps
         [When(@"I enter a post command")]
         public void WhenIEnterAPostCommand()
         {
-            stringCommand = "Ana -> Hello!";
+            userInput = "Ana -> Hello!";
         }
 
         [Then(@"I should create a post")]
         public void ThenIShouldCreateAPost()
         {
-            var userInputFactory = new UserInputParser(stringCommand);
+            var userInputParser = new UserInputParser();
             var posts = new PostsRepository();
-            var command = new Command(userInputFactory, users, posts,
+            var command = new Program(userInputParser, users, posts,
                                                 commandFactory, console);
-            command.Execute();
+            command.Execute(userInputParser.Parse(userInput));
 
             posts.Count().Should().Be(1);
         }
@@ -45,21 +46,21 @@ namespace ConsoleTwitterTests.Acceptance.Steps
         [When(@"I enter a read command")]
         public void WhenIEnterAReadCommand()
         {
-            stringCommand = "Ana";
+            userInput = "Ana";
         }
 
         [Then(@"I should see all my posts")]
         public void ThenIShouldSeeAllMyPosts()
         {
-            var userInputFactory = new UserInputParser(stringCommand);
-            var user = users.GetUser(stringCommand);
+            var userInputParser = new UserInputParser();
+            var user = users.GetUser(userInput);
             var posts = new PostsRepository();
             posts.Create(user, "Hello!");
 
             console = Substitute.For<ConsoleWriter>();
-            var command = new Command(userInputFactory, users, posts,
+            var program = new Program(userInputParser, users, posts,
                                                 commandFactory, console);
-            command.Execute();
+            program.Execute(userInputParser.Parse(userInput));
 
             console.Received().WriteMessage(Arg.Any<string>());
         }
@@ -67,17 +68,17 @@ namespace ConsoleTwitterTests.Acceptance.Steps
         [When(@"I enter a follow command")]
         public void WhenIEnterAFollowCommand()
         {
-            stringCommand = "Ana follows Pedro";
+            userInput = "Ana follows Pedro";
         }
 
         [Then(@"I should follow the userToFollow")]
         public void ThenIShouldFollowTheUserToFollow()
         {
-            var userInputFactory = new UserInputParser(stringCommand);
+            var userInputParser = new UserInputParser();
             var posts = new PostsRepository();
-            var command = new Command(userInputFactory, users, posts,
+            var program = new Program(userInputParser, users, posts,
                                                 commandFactory, console);
-            command.Execute();
+            program.Execute(userInputParser.Parse(userInput));
             var user = users.GetUser("Ana");
             user.Following.Count().Should().Be(1);
 
@@ -86,13 +87,13 @@ namespace ConsoleTwitterTests.Acceptance.Steps
         [When(@"I enter a wall command")]
         public void WhenIEnterAWallCommand()
         {
-            stringCommand = "Ana wall";
+            userInput = "Ana wall";
         }
 
         [Then(@"I should see all my posts and the posts from who I follow")]
         public void ThenIShouldSeeAllMyPostsAndThePostsFromWhoIFollow()
         {
-            var userInputFactory = new UserInputParser(stringCommand);
+            var userInputParser = new UserInputParser();
             var user = users.GetUser("Ana");
             var followingUser = users.GetUser("Pedro");
             users.FollowUser(user, followingUser);
@@ -100,9 +101,9 @@ namespace ConsoleTwitterTests.Acceptance.Steps
             posts.Create(user, "Hello!");
             posts.Create(followingUser, "Hello from Pedro");
             console = Substitute.For<ConsoleWriter>();
-            var command = new Command(userInputFactory, users, posts,
+            var program = new Program(userInputParser, users, posts,
                                                 commandFactory, console);
-            command.Execute();
+            program.Execute(userInputParser.Parse(userInput));
 
             console.Received(2).WriteMessage(Arg.Any<string>());
         }
