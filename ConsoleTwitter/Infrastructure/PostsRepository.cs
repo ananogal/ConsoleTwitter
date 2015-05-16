@@ -1,4 +1,5 @@
 ﻿using ConsoleTwitter.Domain;
+using NodaTime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,8 +7,6 @@ using System.Text;
 
 namespace ConsoleTwitter.Infrastructure
 {
-   // private List<Post> posts;
-
 	public class PostsRepository
 	{
 		private List<Post> postsList;

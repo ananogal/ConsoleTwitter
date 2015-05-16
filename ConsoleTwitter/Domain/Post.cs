@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ConsoleTwitter.Infrastructure;
+using NodaTime;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,7 +32,7 @@ namespace ConsoleTwitter.Domain
         {
             this.user = user;
             this.message = message;
-            this.publishedDate = DateTime.Now;
+            this.publishedDate = Clock.Now;
         }
 
     }

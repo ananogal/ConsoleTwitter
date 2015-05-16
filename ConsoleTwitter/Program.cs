@@ -12,6 +12,7 @@ namespace ConsoleTwitter
     class Program
     {
         static ConsoleWriter console;
+
         public static void Main(string[] args)
         {
             console = new ConsoleWriter();
@@ -29,7 +30,7 @@ namespace ConsoleTwitter
             var usersRepository = new UsersRepository();
             var postsRepository = new PostsRepository();
             var commandFactory = new CommandFactory();
-            var console = new ConsoleWriter();
+            console = new ConsoleWriter();
             do
             {
                 console.WriteMessage("Please enter a command:");
