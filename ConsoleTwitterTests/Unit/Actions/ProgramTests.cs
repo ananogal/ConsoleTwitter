@@ -28,18 +28,6 @@ namespace ConsoleTwitterTests.Unit.Actions
             commandFactory = Substitute.For<CommandFactory>();
             console = Substitute.For<ConsoleWriter>();
         }
-        
-        [Test]
-        public void ItShouldColaborateWithCreateUserInputToCreateAUserInput()
-        {
-            string userInput = "Ana   ";
-            var userInputFactory = Substitute.For<UserInputParser>();
-            var program = new Program(userInputFactory, users, posts, commandFactory, console);
-
-            program.WaitForCommand();
-
-            userInputFactory.Received().Parse(userInput);
-        }
 
         [Test]
         public void ItShouldColaborateWithCommandFactoryToCreateACommand()

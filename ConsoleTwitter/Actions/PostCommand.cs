@@ -25,7 +25,7 @@ namespace ConsoleTwitter.Actions
         {
             var user = usersRepository.GetUser(userInput.Username);
             postsRepository.Create(user, userInput.Action);
-            return null;
+            return new List<Post>();
         }
     }
 }

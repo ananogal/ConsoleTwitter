@@ -25,7 +25,7 @@ namespace ConsoleTwitter.Actions
             var userToFollow = users.GetUser(userInput.Action);
             users.FollowUser(user, userToFollow);
 
-            return null;
+            return new List<Post>();
         }
     }
 }

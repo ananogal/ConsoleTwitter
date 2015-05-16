@@ -45,7 +45,7 @@ namespace ConsoleTwitter
             console.WriteWelcomeMessage();
         }
 
-        public void WaitForCommand()
+        private void WaitForCommand()
         {
             do
             {
